@@ -107,9 +107,14 @@ jobs:
           cat ~/.ssh/known_hosts
         shell: bash
 
-      - name: Deploy project files to server
+      - name: Copy project files to server
         run: |
-          rsync -avz --exclude '__pycache__' -e "ssh -o UserKnownHostsFile=/home/runner/.ssh/known_hosts -o StrictHostKeyChecking=yes" . ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:${{ secrets.DEPLOY_DIR }}
+          rsync -avz --exclude '__pycache__' . ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:${{ secrets.DEPLOY_DIR }}
+
+
+#      - name: Deploy project files to server
+#        run: |
+#          rsync -avz --exclude '__pycache__' -e "ssh -o UserKnownHostsFile=/home/runner/.ssh/known_hosts -o StrictHostKeyChecking=yes" . ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:${{ secrets.DEPLOY_DIR }}
 
       - name: Install dependencies on server
         run: |
