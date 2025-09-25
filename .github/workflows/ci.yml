@@ -1,6 +1,6 @@
 name: Django CI/CD Pipeline
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   test:
@@ -47,10 +47,10 @@ jobs:
 
 
     - name: Run migrations
-      run: python manage.py migrate
+      run: sudo python manage.py migrate
 
     - name: Run tests
-      run: python manage.py test
+      run: sudo python manage.py test
 
   deploy:
     runs-on: ubuntu-latest
