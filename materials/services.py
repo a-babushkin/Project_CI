@@ -9,7 +9,7 @@ from materials.models import Course, Subscription
 from users.models import User
 
 logger = logging.getLogger(__name__)
-log_dir = '/app/logs'
+log_dir = '/logs'
 # os.makedirs(log_dir, 0o777,  exist_ok=True)
 log_file_path = os.path.join(log_dir, 'mailing_send.log')
 file_handler = logging.FileHandler(log_file_path, encoding="utf-8")
