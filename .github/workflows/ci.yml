@@ -22,11 +22,22 @@ jobs:
           --health-retries=5
 
       redis:
-        image: redis:7
+        image: redis:7-alpine
         ports:
           - 6379:6379
+        options: >-
+          --health-cmd="redis-cli ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
         env:
-          REDIS_LOCATION: '127.0.0.1://redis:6379/0'
+          # указываем, куда Celery должен коннектиться
+          CELERY_BROKER_URL: redis://127.0.0.1:6379/0
+          CELERY_RESULT_BACKEND: redis://127.0.0.1:6379/0
+          # если хотите запускать задачи синхронно в тестах, можно включить eager-режим
+          CELERY_TASK_ALWAYS_EAGER: "true"
+          CELERY_TASK_EAGER_PROPAGATES: "true"
 
     steps:
     - name: Check out code
