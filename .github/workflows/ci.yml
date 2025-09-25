@@ -21,6 +21,7 @@ jobs:
         path: ~/.cache/pip
         key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
         restore-keys: |
+          ${{ runner.os }}-pip-${{ github.run_id }}-
           ${{ runner.os }}-pip-
 
     - name: Install dependencies
@@ -47,10 +48,10 @@ jobs:
 
 
     - name: Run migrations
-      run: sudo python manage.py migrate
+      run: python manage.py migrate
 
     - name: Run tests
-      run: sudo python manage.py test
+      run: python manage.py test
 
   deploy:
     runs-on: ubuntu-latest
