@@ -6,12 +6,13 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 load_dotenv()
-BASE_DIR = Path(__file__).resolve().parent.parent
+# BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 STRIPE_API_KEY = os.getenv("STRIPE_API_KEY")
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -116,6 +117,7 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = "static/"
+# STATICFILES_DIRS = [ '/app/static']
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
@@ -165,5 +167,5 @@ if TESTING:
     CELERY_RESULT_BACKEND = "cache+memory://"
 else:
     # ваша обычная конфигурация
-    CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL", "redis://127.0.0.1:6379/0")
-    CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND", "redis://127.0.0.1:6379/0")
+    CELERY_BROKER_URL = os.getenv("REDIS_LOCATION")
+    CELERY_RESULT_BACKEND = os.getenv("REDIS_LOCATION")
