@@ -6,7 +6,8 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 load_dotenv()
-BASE_DIR = Path(__file__).resolve().parent.parent
+# BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 STRIPE_API_KEY = os.getenv("STRIPE_API_KEY")
@@ -115,8 +116,8 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = "static/"
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
